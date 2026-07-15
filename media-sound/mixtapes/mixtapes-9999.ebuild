@@ -12,7 +12,7 @@ RESTRICT='strip'
 PYTHON_COMPAT=( python3_{10..14} )
 
 # USE flags
-IUSE='nuitka +webkit-gtk +strip'
+IUSE='nuitka webkit-gtk strip'
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 # Dependencies
