@@ -70,7 +70,7 @@ else
 fi
 
 # placeholder src_configure
-src_configure() { : }
+#src_configure() { : }
 
 # compile block, here it gets spicy
 src_compile() {
