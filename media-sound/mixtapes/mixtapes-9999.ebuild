@@ -3,13 +3,13 @@
 
 # Metadata
 EAPI=8
-inherit python-single-r1
 DESCRIPTION='A modern, Linux-first YouTube Music player.'
 HOMEPAGE='https://github.com/m-obeid/Mixtapes'
 LICENSE='GPL-3'
 SLOT='0'
 RESTRICT='strip'
 PYTHON_COMPAT=( python3_{10..14} )
+inherit python-single-r1
 
 # USE flags
 IUSE='nuitka webkit-gtk strip'
