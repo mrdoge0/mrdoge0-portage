@@ -77,7 +77,7 @@ src_install() {
     mkdir -p "${D}/opt/mixtapes/share/applications" || die
     mkdir -p "${D}/opt/mixtapes/lib/mixtapes" || die
     mkdir -p "${D}/etc/profile.d" || die
-    cp -r "${WORKDIR}/*" "${D}/opt/mixtapes/lib/mixtapes/" || die
+    cp -r "${WORKDIR}/main/*" "${D}/opt/mixtapes/lib/mixtapes/" || die
     ln -sf "../lib/mixtapes/assets/icons" "${D}/opt/mixtapes/share/icons" || die
     ln -sf "../../lib/mixtapes/com.pocoguy.Muse.desktop" "${D}/opt/mixtapes/share/applications/com.pocoguy.Muse.desktop" || die
     if use nuitka; then
