@@ -1,0 +1,2 @@
+# Copyright 2026 mrdoge0
+# Distributed under the terms of the GNU General Public License v3
