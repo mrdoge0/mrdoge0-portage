@@ -10,7 +10,7 @@ SLOT='0'
 RESTRICT='strip'
 
 # USE flags
-IUSE='nuitka +webkit-gtk'
+IUSE='nuitka +webkit-gtk +strip'
 
 # Dependencies
 RDEPEND="
@@ -32,10 +32,13 @@ RDEPEND="
     dev-python/requests
     dev-python/yt-dlp-get-pot
     dev-python/yt-dlp-get-pot-rustypipe
-    dev-python/urllib3 dev-python/mutagen
-    dev-python/pillow dev-python/pydbus
+    dev-python/urllib3
+    dev-python/mutagen
+    dev-python/pillow
+    dev-python/pydbus
     =dev-python/StrEnum-0.4.15
     dev-python/mprisify
+    strip? ( media-fonts/adwaita-fonts )
 "
 
 DEPEND="
@@ -66,7 +69,21 @@ src_compile() {
         cd "${WORKDIR}/main/src"
         python3 -m nuitka --clang --file-reference-choice=runtime --include-package=ui --include-package=api --include-package=player --include-module=logger --output-filename=mixtapes main.py || die 'Failed to build with Nuitka. Perhaps try without Nuitka?'
     else
-        echo 'Not building with Nuitka. Nothing to do.'
+        if ! use strip; then
+            echo 'Not building with Nuitka, and strip isnt enabled. Nothing to do.'
+        else
+            echo 'Not building with Nuitka, but strip is enabled. Only stripping the source.'
+        fi
+    fi
+
+    if use strip; then
+        for a in 'aur-package' 'build.sh' 'flake.lock' 'flake.nix' 'README.md' 'requirements.txt' 'requirements-windows.txt' 'screenshots' 'start.bat' 'start.sh' 'test' 'windows' 'fonts'; do
+            rm -rvf "${WORKDIR}/main/${a}" || die
+        done
+        mkdir -p "${WORKDIR}/main/fonts" || die
+        for a in 'AdwaitaMono-Bold' 'AdwaitaMono-BoldItalic' 'AdwaitaMono-Italic' 'AdwaitaMono-Regular' 'AdwaitaSans-Italic' 'AdwaitaSans-Regular'; do
+            ln -sf "/usr/share/fonts/Adwaita/${a}.ttf" "${WORKDIR}/main/fonts/${a}.ttf" || die
+        done
     fi
 }
 
