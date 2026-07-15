@@ -59,7 +59,15 @@ BDEPEND="
 KEYWORDS='~amd64'
 
 # DL URL
-SRC_URI='https://github.com/m-obeid/Mixtapes/archive/refs/heads/main.zip'
+if [[ ${PV} == 9999 ]]; then
+    EGIT_REPO_URI='https://github.com/m-obeid/Mixtapes'
+    EGIT_BRANCH='main'
+    inherit git-r3
+else
+    #SRC_URI='https://github.com/m-obeid/Mixtapes/archive/refs/heads/main.zip'
+    # no proper version of mixtapes yet D:
+    die 'what the fuck was this issue my friend?'
+fi
 
 # placeholder src_configure
 src_configure() {
@@ -68,7 +76,7 @@ src_configure() {
 # compile block, here it gets spicy
 src_compile() {
     if use nuitka; then
-        cd "${WORKDIR}/main/src"
+        cd "${S}/src"
         $(echo ${PYTHON_SINGLE_TARGET} | tr _ .) -m nuitka --clang --file-reference-choice=runtime --include-package=ui --include-package=api --include-package=player --include-module=logger --output-filename=mixtapes main.py || die 'Failed to build with Nuitka. Perhaps try without Nuitka?'
     else
         if ! use strip; then
@@ -80,11 +88,11 @@ src_compile() {
 
     if use strip; then
         for a in 'aur-package' 'build.sh' 'flake.lock' 'flake.nix' 'README.md' 'requirements.txt' 'requirements-windows.txt' 'screenshots' 'start.bat' 'start.sh' 'test' 'windows' 'fonts'; do
-            rm -rvf "${WORKDIR}/main/${a}" || die
+            rm -rvf "${S}/${a}" || die
         done
-        mkdir -p "${WORKDIR}/main/fonts" || die
+        mkdir -p "${S}/fonts" || die
         for a in 'AdwaitaMono-Bold' 'AdwaitaMono-BoldItalic' 'AdwaitaMono-Italic' 'AdwaitaMono-Regular' 'AdwaitaSans-Italic' 'AdwaitaSans-Regular'; do
-            ln -sf "/usr/share/fonts/Adwaita/${a}.ttf" "${WORKDIR}/main/fonts/${a}.ttf" || die
+            ln -sf "/usr/share/fonts/Adwaita/${a}.ttf" "${S}/fonts/${a}.ttf" || die
         done
     fi
 }
@@ -96,7 +104,7 @@ src_install() {
     mkdir -p "${D}/opt/mixtapes/share/applications" || die
     mkdir -p "${D}/opt/mixtapes/lib/mixtapes" || die
     mkdir -p "${D}/etc/profile.d" || die
-    cp -r "${WORKDIR}/main/*" "${D}/opt/mixtapes/lib/mixtapes/" || die
+    cp -r "${S}/*" "${D}/opt/mixtapes/lib/mixtapes/" || die
     ln -sf "../lib/mixtapes/assets/icons" "${D}/opt/mixtapes/share/icons" || die
     ln -sf "../../lib/mixtapes/com.pocoguy.Muse.desktop" "${D}/opt/mixtapes/share/applications/com.pocoguy.Muse.desktop" || die
     if use nuitka; then
