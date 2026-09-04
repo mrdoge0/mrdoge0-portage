@@ -29,18 +29,18 @@ RDEPEND="
     media-video/ffmpeg
     dev-python/pygobject
     >=net-misc/yt-dlp-2026.07.04
-    >=dev-python/yt-dlp-ejs-0.8.0[${PYTHON_USEDEP}]
-    dev-python/numpy[${PYTHON_USEDEP}]
-    dev-python/ytmusicapi[${PYTHON_USEDEP}]
-    dev-python/requests[${PYTHON_USEDEP}]
-    dev-python/yt-dlp-get-pot[${PYTHON_USEDEP}]
-    dev-python/yt-dlp-get-pot-rustypipe[${PYTHON_USEDEP}]
-    dev-python/urllib3[${PYTHON_USEDEP}]
-    dev-python/mutagen[${PYTHON_USEDEP}]
-    dev-python/pillow[${PYTHON_USEDEP}]
-    dev-python/pydbus[${PYTHON_USEDEP}]
-    =dev-python/StrEnum-0.4.15[${PYTHON_USEDEP}]
-    dev-python/mprisify[${PYTHON_USEDEP}]
+    >=dev-python/yt-dlp-ejs-0.8.0[${PYTHON_SINGLE_USEDEP}]
+    dev-python/numpy[${PYTHON_SINGLE_USEDEP}]
+    dev-python/ytmusicapi[${PYTHON_SINGLE_USEDEP}]
+    dev-python/requests[${PYTHON_SINGLE_USEDEP}]
+    dev-python/yt-dlp-get-pot[${PYTHON_SINGLE_USEDEP}]
+    dev-python/yt-dlp-get-pot-rustypipe[${PYTHON_SINGLE_USEDEP}]
+    dev-python/urllib3[${PYTHON_SINGLE_USEDEP}]
+    dev-python/mutagen[${PYTHON_SINGLE_USEDEP}]
+    dev-python/pillow[${PYTHON_SINGLE_USEDEP}]
+    dev-python/pydbus[${PYTHON_SINGLE_USEDEP}]
+    =dev-python/StrEnum-0.4.15[${PYTHON_SINGLE_USEDEP}]
+    dev-python/mprisify[${PYTHON_SINGLE_USEDEP}]
     strip? ( media-fonts/adwaita-fonts[X] )
 "
 
